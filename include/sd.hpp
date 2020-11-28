@@ -1,11 +1,13 @@
 #pragma once
-#include <iostream>
+#include <string>
 
-class SD {
-    public:
-        SD(std::string path_);
+namespace Log {
+    class SD {
+        public:
+            SD(std::string path_);
 
-        std::string getPath();
-    private:
-        std::string path;
-};
+            std::string getPath();
+        private:
+            std::string path;
+    };
+}

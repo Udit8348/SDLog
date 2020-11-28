@@ -3,6 +3,8 @@
 #include <string>
 #include "../include/sd.hpp"
 
+using namespace Log;
+
 int main() {
     SD card{"/usd"};
     std::cout << card.getPath() << std::endl;
