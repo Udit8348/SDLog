@@ -1,1 +1,2 @@
-#include "../include/sd.h";
+#include "../include/sd.hpp"
+void test(){std::cout << "help" << std::endl;}
