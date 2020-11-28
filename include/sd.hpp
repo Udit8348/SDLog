@@ -1,3 +1,11 @@
 #pragma once
 #include <iostream>
-void test();
+
+class SD {
+    public:
+        SD(std::string path_);
+
+        std::string getPath();
+    private:
+        std::string path;
+};
