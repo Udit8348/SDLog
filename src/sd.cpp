@@ -3,52 +3,87 @@
 namespace Log {
     SD::SD() {
         this->root = "/Users/imacudit/Documents/CompPro/CPP/SDLog/usd";
-        setTimestamp();
+        this-> timestamp = createTimestamp();
+        logData();
+    }
+    
+    std::string SD::createPath(std::string path) {
+        return root + "/" + path;
     }
 
-    std::string SD::getRoot() {
-        return root;
-    }
-    std::string SD::getPath() {
-        return path;
-    }
-    void SD::setPath(std::string path_) {
-        this->path = root + "/" + path_;
-    }
-    void SD::setTimestamp(){
-        // current date/time based on current system
+    std::string SD::createTimestamp(){
+        #ifdef V5
+            std::cout << "read from the non volitile memory" << std::endl;
+            // read in from file to get the coded timestamp
+            std::ifstream counter;
+            std::string coded;
+            std::string decoded;
+            counter.open("/Users/imacudit/Documents/CompPro/CPP/SDLog/usd/memory/counter.csv");
+            if (counter.is_open()) {
+                counter >> coded;
+            }
+            counter.close();
+            // std::cout << coded << std::endl;
+            // decode the timestamp
+            //set the timestamp private variable
+            return coded;
+            // the createLogfile method should work in either case; no compilier macros
+        #endif
+
+        #ifndef V5
         time_t now = time(0);
-        // convert now to string form
         std::string dt = ctime(&now);
         dt.erase(remove_if(dt.begin(), dt.end(), isspace), dt.end());
-        this->timestamp = dt;
+        return dt;
+        #endif
     }
-    // maybe give the option to customize the type of log file
-    void SD::createLogfile(){
-        std::string name = this->timestamp + "-log.txt";
-        setPath(name);
-        std::string path = getPath();
-        std::fstream logfile;
+
+    void SD::write(FileType type, FileMode option, std::vector<std::string> messages) {
+        std::ofstream outf;
+        std::string path;
+        std::vector<std::string>::iterator s;
+        switch (type)
+        {
+        case LOG:
+            path = createPath("logs/" + this->timestamp + ".log");
+            break;
+        
+        case CSV:
+            /* code */
+            break;
+
+        case TXT:
+            /* code */
+            break;
+        
+        default:
+            std::cout << "Invalid File Type" << std::endl;
+            break;
+        }
+
         try
         {
-            logfile.open(path);
-            logfile << "udt" << std::endl;
+            std::ios_base::openmode mode = (option == APPEND ? std::ofstream::app : std::ofstream::trunc);
+            outf.open(path, mode);
+            if(outf.is_open()) {
+                for (s = messages.begin(); s != messages.end(); s++) {
+                    outf << *s << std::endl;
+                }
+            }
+            outf.close();
         }
         catch(const std::exception& e)
         {
-            std::cout << "Error Opening File" << '\n';
-            std::cout << e.what() << '\n';
+            std::cerr << e.what() << '\n';
         }
-        if(logfile.is_open()) {
-            logfile.close();
-        }
-        std::cout << path << std::endl;
-
-        std::ofstream outfile;
-        outfile.open(path);
-        if(outfile.is_open()) {
-            outfile << "my text here!" << std::endl;
-        }
-        outfile.close();
     }
+
+    void SD::logData() {
+        std::vector<std::string> s = {"- Log -"};
+        logData(s);
+    }
+
+    void SD::logData(std::vector<std::string> messages){
+        write(LOG, APPEND, messages);
+    }    
 }
