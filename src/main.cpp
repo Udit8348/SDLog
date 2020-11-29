@@ -4,9 +4,20 @@ using namespace Log;
 
 int main() {
     SD card{};
-    card.setPath("Bot.txt");
-    std::cout << card.getRoot() << std::endl;
-    std::cout << card.getPath() << std::endl;
-    card.createLogfile();
+
+    std::vector<std::string> m;
+    m.push_back("Udit");
+    m.push_back("Cat");
+    m.push_back("Dog");
+
+    card.logData(m);
+
+    std::vector<std::string> me;
+    me.push_back("Three");
+    me.push_back("Four");
+    card.logData(me);
+
+    std::cout << "udit" << std::endl;
+
    return 0;
 }
