@@ -3,21 +3,21 @@
 using namespace Log;
 
 int main() {
-    SD card{};
+  SD card{};
 
-    std::vector<std::string> m;
-    m.push_back("Udit");
-    m.push_back("Cat");
-    m.push_back("Dog");
+  std::vector<std::string> m;
+  m.push_back("Udit");
+  m.push_back("Cat");
+  m.push_back("Dog");
 
-    card.logData(m);
+  card.logData(m);
 
-    std::vector<std::string> me;
-    me.push_back("Three");
-    me.push_back("Four");
-    card.logData(me);
+  std::vector<std::string> me;
+  me.push_back("Three");
+  me.push_back("Four");
+  card.logData(me);
 
-    card.logData("Tubby");
+  card.logData("Tubby2");
 
-   return 0;
+  return 0;
 }
