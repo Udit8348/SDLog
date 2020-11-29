@@ -79,11 +79,16 @@ namespace Log {
     }
 
     void SD::logData() {
-        std::vector<std::string> s = {"- Log -"};
-        logData(s);
+        std::vector<std::string> vs = {"- Log -"};
+        logData(vs);
     }
 
-    void SD::logData(std::vector<std::string> messages){
+    void SD::logData(std::string message) {
+        std::vector<std::string> vs = {message};
+        logData(vs);
+    } 
+
+    void SD::logData(std::vector<std::string> messages) {
         write(LOG, APPEND, messages);
-    }    
+    }
 }

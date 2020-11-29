@@ -20,12 +20,13 @@ namespace Log {
             std::string createTimestamp();
             void write(FileType type, FileMode mode, std::vector<std::string> messages);
             void read(FileType type);
+            void logData();
         public:
             SD();
             /**
              * Useful User Wrapper Methods
              */
-            void logData();
+            void logData(std::string message);
             void logData(std::vector<std::string> messages);
     };
 }

@@ -17,7 +17,7 @@ int main() {
     me.push_back("Four");
     card.logData(me);
 
-    std::cout << "udit" << std::endl;
+    card.logData("Tubby");
 
    return 0;
 }
